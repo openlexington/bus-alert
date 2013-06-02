@@ -13,8 +13,8 @@ module Lextran
     end
 
     def self.for_stop( stop_id, route_id )
-      endpoint = '/map/GetStopHtml.ashx'
-      options = { query: { stopId: stop_id } }
+      endpoint = '/departures.aspx'
+      options = { query: { stopid: stop_id } }
       data = get(endpoint, options)
       unless data.response.code == '200'
         raise ApiError, "Something went wrong retrieving #{endpoint}" +
@@ -22,46 +22,45 @@ module Lextran
       end
 
       doc = Nokogiri::HTML(data.parsed_response)
-      doc = table_for_route(doc, route_id)
-      begin
-        sdt_col = find_sdt_col(doc.css('tr').first)
-        edt_col = find_edt_col(doc.css('tr').first)
-      rescue ApiError
-        raise ApiError, "Failed to find departure times in HTML:" +
-                        " #{data.parsed_response}"
-      end
 
-      # Skip the header row.
-      rows = doc.css('tr')[1..-1]
-      rows.map { |tr|
-        ApiResponse.new( stop_id,
-                         tr.css('td')[sdt_col].text,
-                         tr.css('td')[edt_col].text )
-      }
+      extract_arrivals(doc, stop_id, route_id)
     end
+
 
     ############################################################################
     private
     ############################################################################
 
-    def self.table_for_route( doc, route_id )
-      doc.css('table').find { |table|
-        table.css('td.headingText').text.match(/Route:\w+#{route_id}/)
-      }
-    end
+    def self.extract_arrivals( doc, stop_id, route_id )
+      is_relevant = false
+      arrivals = []
+      route = BusRoute.find(route_id)
 
-    def find_sdt_col( tr )
-      tr.css('th').each_with_index do |th, i|
-        return i if th.attr('class') == 'sdt'
-      end
-      raise ApiError
-    end
+      # Body contains an unorganized list of divs. One div will have the route
+      # name, like "Hamburg Pavilion - Outbound", and the following divs have
+      # departure times, as '01:22 PM'. When no buses are running, departure
+      # time divs will say "Done".
+      puts route.name
+      doc.css('body div').each do |div|
+        puts div.text
 
-    def find_edt_col( tr )
-      tr.css('th').each_with_index do |th, i|
-        return i if th.attr('class') == 'edt'
+        case div.attr('class')
+          when 'routeName'
+            is_relevant = !!div.text.match(/^#{route.name}/)
+          when 'departure'
+            if is_relevant
+              begin
+                # TOTALLY DOES NOT WORK WITH TIME ZONES.
+                arrival_at = Time.parse(div.text)
+                arrivals << ApiResponse.new(stop_id, arrival_at, arrival_at)
+              rescue ArgumentError
+                # Non-time info in departure. Usually when buses aren't running.
+              end
+            end
+        end
       end
-      raise ApiError
+
+      arrivals
     end
   end
 end
