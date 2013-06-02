@@ -28,7 +28,7 @@ Lexington mobile app that reminds you when your bus is approaching.
   - http://realtime.lextran.com/infopoint/traces/Georgetown_Road.kml
 
 ### This app's JSON API
-```json
+```javascript
 // GET /
 // GET /routes
 {
