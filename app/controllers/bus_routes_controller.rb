@@ -13,7 +13,7 @@ class BusRoutesController < ApplicationController
   ##############################################################################
 
   def refresh_routes
-    new_routes = Lextran::Route.all
+    new_routes = Lextran::Route.all.uniq(&:route_num)
     if new_routes.present?
       BusRoute.transaction do
         BusRoute.delete_all

@@ -13,7 +13,7 @@ class BusStopsController < ApplicationController
   ##############################################################################
 
   def refresh_stops( route_id )
-    new_stops = Lextran::Stop.for_route(route_id)
+    new_stops = Lextran::Stop.for_route(route_id).uniq(&:stop_num)
     if new_stops.present?
       BusStop.transaction do
         BusStop.where(route_id: route_id).delete_all
