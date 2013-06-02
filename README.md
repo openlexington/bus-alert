@@ -29,31 +29,39 @@ Lexington mobile app that reminds you when your bus is approaching.
 ### This app's JSON API
 ```javascript
 // GET /
-// GET /routes
+// GET /bus_routes
 {
   routes: [
     { name: 'Hamburg Pavilion', id: 10 }
   ]
 }
 
-// GET /routes/10/stops
+// GET /bus_routes/10/bus_stops
 {
   stops: [
-    { id: 943, name: 'Vendor Way @ Best Buy', lat:  '38.023392', long: '-84.419754' }
+    { id: 943, name: 'Vendor Way @ Best Buy', lat:  '38.023392', long: '-84.419754', route_id: 10 }
   ]
 }
 
-// GET /routes/10/stops/943
+// GET /bus_routes/10/bus_stops/943
 {
   arrivals: [
-    { bus_no: '415', sdt: '14:30:00-0500', edt: '14:32:00-0500' },
-    { bus_no: '415', sdt: '14:35:00-0500', edt: '' }
+    { bus_id: '415', scheduled_at: '14:30:00-0500', estimated_at: '14:32:00-0500' },
+    { bus_id: '415', scheduled_at: '14:35:00-0500', estimated_at: '' }
   ]
 }
 
-// GET /routes/10/stops/943/next
-{ bus_no: '415', edt: '14:32:00-0500' }
+// GET /bus_routes/10/bus_stops/943/next
+{ bus_id: '415', edt: '14:32:00-0500' }
 ```
+
+### Current status
+Will have to scrape arrivals from noscript interface (departures.aspx). The HTML
+API for pulling a stop's departures requires an active session in which the
+user has clicked a route from the route selector UI, which would be awful to
+get working on the server. So, back to parsing HTML. Not yet implemented.
+
+Route and stop endpoints are working.
 
 ### Future expansion
 API data that would make this app better:

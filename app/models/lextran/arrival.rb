@@ -12,10 +12,9 @@ module Lextran
     class ApiResponse < Struct.new(:stop_id, :scheduled_at, :estimated_at)
     end
 
-    def self.for_stop( route_id, stop_id )
-      post('/default.aspx', query: { 'ScriptManager1' => "UpdatePanelList|NameID_#{route_id}" })
-      endpoint = '/departures.aspx'
-      options = { query: { stopid: stop_id } }
+    def self.for_stop( stop_id, route_id )
+      endpoint = '/map/GetStopHtml.ashx'
+      options = { query: { stopId: stop_id } }
       data = get(endpoint, options)
       unless data.response.code == '200'
         raise ApiError, "Something went wrong retrieving #{endpoint}" +

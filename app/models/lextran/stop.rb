@@ -19,7 +19,10 @@ module Lextran
                         " #{options.inspect}: #{data.response.message}"
       end
 
-      data['route']['stops']['stop'].map { |stop|
+      puts 'route_id', route_id
+      data = data['route']
+      data = data['stops']
+      data['stop'].map { |stop|
         APIResponse.new( stop['label'],
                          stop['lat'],
                          stop['lng'],
