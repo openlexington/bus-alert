@@ -1,6 +1,6 @@
 class BusStopsController < ApplicationController
   def index
-    if BusStop.where(route_id: params[:bus_route_id]).outdated.exists? || !BusStop.exists?
+    if BusStop.where(bus_route_id: params[:bus_route_id]).outdated.exists? || !BusStop.exists?
       refresh_stops(params[:bus_route_id])
     end
     bus_stops = BusStop.for_route(params[:bus_route_id])
@@ -16,7 +16,7 @@ class BusStopsController < ApplicationController
     new_stops = Lextran::Stop.for_route(route_id).uniq(&:stop_num)
     if new_stops.present?
       BusStop.transaction do
-        BusStop.where(route_id: route_id).delete_all
+        BusStop.where(bus_route_id: route_id).delete_all
         new_stops.each do |stop|
           BusStop.create!(stop.to_h)
         end

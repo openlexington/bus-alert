@@ -9,7 +9,7 @@ module Lextran
 
     class ApiError < StandardError; end
 
-    class ApiResponse < Struct.new(:stop_id, :scheduled_at, :estimated_at)
+    class ApiResponse < Struct.new(:bus_stop_id, :scheduled_at, :estimated_at)
     end
 
     def self.for_stop( stop_id, route_id )

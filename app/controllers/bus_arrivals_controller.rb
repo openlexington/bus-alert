@@ -18,11 +18,11 @@ class BusArrivalsController < ApplicationController
   ##############################################################################
 
   def refresh_arrivals( stop_id, route_id )
-    if BusArrival.where(stop_id: stop_id).outdated.exists? || !BusArrival.exists?
+    if BusArrival.where(bus_stop_id: stop_id).outdated.exists? || !BusArrival.exists?
       new_arrivals = Lextran::Arrival.for_stop(stop_id, route_id)
       if new_arrivals.present?
         BusArrival.transaction do
-          BusArrival.where(stop_id: stop_id).delete_all
+          BusArrival.where(bus_stop_id: stop_id).delete_all
           new_arrivals.each do |arrival|
             BusArrival.create!(arrival.to_h)
           end

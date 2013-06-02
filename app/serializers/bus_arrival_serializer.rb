@@ -1,3 +1,3 @@
 class BusArrivalSerializer < ActiveModel::Serializer
-  attributes :id, :bus_id, :stop_id, :scheduled_at, :estimated_at
+  attributes :id, :bus_id, :bus_stop_id, :scheduled_at, :estimated_at
 end

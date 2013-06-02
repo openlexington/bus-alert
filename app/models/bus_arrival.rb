@@ -8,6 +8,6 @@ class BusArrival < ActiveRecord::Base
   end
 
   def self.for_stop( stop_id )
-    where(stop_id: stop_id)
+    where(bus_stop_id: stop_id)
   end
 end

@@ -7,7 +7,7 @@ module Lextran
 
     class APIError < StandardError; end
 
-    class APIResponse < Struct.new(:name, :lat, :long, :stop_num, :route_id)
+    class APIResponse < Struct.new(:name, :lat, :long, :stop_num, :bus_route_id)
     end
 
     def self.for_route( route_id )

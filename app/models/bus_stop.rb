@@ -12,6 +12,6 @@ class BusStop < ActiveRecord::Base
   end
 
   def self.for_route( route_id )
-    where(route_id: route_id)
+    where(bus_route_id: route_id)
   end
 end

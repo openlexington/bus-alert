@@ -1,3 +1,3 @@
 class BusStopSerializer < ActiveModel::Serializer
-  attributes :id, :name, :lat, :long, :route_id
+  attributes :id, :name, :lat, :long, :bus_route_id
 end
