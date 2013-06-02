@@ -39,6 +39,7 @@ group :development do
   gem 'timecop'
   gem 'test-unit'
   gem 'foreman'
+  gem 'vcr'
 end
 
 gem 'rails-api'
