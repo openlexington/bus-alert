@@ -14,7 +14,6 @@ Lexington mobile app that reminds you when your bus is approaching.
 - Given a route, we know stop IDs, bus IDs, and KML for route
 
 ### Resources
-- text-only URLs
 - XML API
   - Route - All stops, link to route KML: http://realtime.lextran.com/InfoPoint/map/GetRouteXml.ashx?RouteId=10
   - Bus - Current position, bus number: http://realtime.lextran.com/InfoPoint/map/GetVehicleXml.ashx?RouteId=10
