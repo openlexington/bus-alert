@@ -1,10 +1,10 @@
 BusAlert::Application.routes.draw do
 
-  resources :bus_routes,    except: [:new, :edit, :create, :update]
+  resources :bus_routes,    only: [:index]
 
-  resources :bus_stops,     except: [:new, :edit, :create, :update]
+  resources :bus_stops,     only: [:index]
 
-  resources :bus_arrivals,  except: [:new, :edit, :create, :update] do
+  resources :bus_arrivals,  only: [:index] do
     collection do
       get :next
     end
