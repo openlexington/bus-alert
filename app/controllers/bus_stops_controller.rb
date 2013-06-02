@@ -1,0 +1,2 @@
+class BusStopsController < ApplicationController
+end

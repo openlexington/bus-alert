@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  lat: 9.99
+  long: 9.99
+  route_id: 1
+  stop_num: 1
+
+two:
+  name: MyString
+  lat: 9.99
+  long: 9.99
+  route_id: 1
+  stop_num: 1

@@ -1,0 +1,2 @@
+class BusArrivalsController < ApplicationController
+end

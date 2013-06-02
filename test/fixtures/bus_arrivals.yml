@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  bus_no: 1
+  stop_id: 1
+  scheduled_at: 2013-06-02 00:21:37
+  estimated_at: 2013-06-02 00:21:37
+
+two:
+  bus_no: 1
+  stop_id: 1
+  scheduled_at: 2013-06-02 00:21:37
+  estimated_at: 2013-06-02 00:21:37
