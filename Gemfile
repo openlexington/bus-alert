@@ -45,6 +45,7 @@ end
 gem 'rails-api'
 gem 'active_model_serializers', '~> 0.7.0'
 gem 'httparty'
+gem 'nokogiri'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

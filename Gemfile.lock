@@ -67,6 +67,7 @@ GEM
     minitest (4.7.4)
     multi_json (1.7.4)
     multi_xml (0.5.3)
+    nokogiri (1.5.9)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -150,6 +151,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 1.0.1)
   jquery-rails
+  nokogiri
   pry
   rails (= 4.0.0.rc1)
   rails-api
