@@ -43,7 +43,7 @@ Lexington mobile app that reminds you when your bus is approaching.
   ]
 }
 
-// GET /bus_routes/10/bus_stops/943
+// GET /bus_routes/10/bus_stops/943/bus_arrivals
 {
   arrivals: [
     { bus_id: '415', scheduled_at: '14:30:00-0500', estimated_at: '14:32:00-0500' },
@@ -51,17 +51,21 @@ Lexington mobile app that reminds you when your bus is approaching.
   ]
 }
 
-// GET /bus_routes/10/bus_stops/943/next
-{ bus_id: '415', edt: '14:32:00-0500' }
+// GET /bus_routes/10/bus_stops/943/bus_arrivals/next
+{ bus_id: '415', scheduled_at: '14:30:00-0500', estimated_at: '14:32:00-0500' }
 ```
 
 ### Current status
-Will have to scrape arrivals from noscript interface (departures.aspx). The HTML
-API for pulling a stop's departures requires an active session in which the
-user has clicked a route from the route selector UI, which would be awful to
-get working on the server. So, back to parsing HTML. Not yet implemented.
+Route, stop, and arrival endpoints are working and returning JSON.
 
-Route and stop endpoints are working.
+We're currently scraping scheduled arrivals from the noscript web pages
+(departures.aspx). The HTML API that the [realtime tracking site](http://lextran.com/bustracker)
+uses to display arrival info on bus stop map markers requires an active user
+session. It remembers which route the user clicked so it can list the active
+route's arrivals first when the user clicks a stop on the map. Unfortunately, if
+there isn't a valid session when the arrivals are requested, the ASP crashes. So,
+back to parsing HTML.
+
 
 ### Future expansion
 API data that would make this app better:
