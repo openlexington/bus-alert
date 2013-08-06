@@ -1,6 +1,6 @@
 class BusStopsController < ApplicationController
   def index
-    if BusStop.where(bus_route_id: params[:bus_route_id]).outdated.exists? || !BusStop.exists?
+    if BusStop.where(bus_route_id: params[:bus_route_id]).outdated.exists? || !BusStop.where(bus_route_id: params[:bus_route_id]).exists?
       refresh_stops(params[:bus_route_id])
     end
     bus_stops = BusStop.for_route(params[:bus_route_id])
