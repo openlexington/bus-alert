@@ -23,10 +23,11 @@ module Lextran
       data = data['vehicles']
 
       # At times a might not have any vehicles
+      vehicle_list = []
       unless data.nil?
         # At times a route only has a single vehicle
         if data['vehicle'].is_a? Array
-          data['vehicle'].map { |vehicle|
+          vehicle_list = data['vehicle'].map { |vehicle|
             APIResponse.new( vehicle['name'],
                              vehicle['lat'],
                              vehicle['lng'],
@@ -34,12 +35,13 @@ module Lextran
           }
         else
           vehicle = data['vehicle']
-          APIResponse.new( vehicle['name'],
+          vehicle_list << APIResponse.new( vehicle['name'],
                    vehicle['lat'],
                    vehicle['lng'],
                    route_id )
         end
       end
+      vehicle_list
     end
   end
 end

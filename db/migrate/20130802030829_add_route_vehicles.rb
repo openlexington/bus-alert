@@ -10,5 +10,6 @@ class AddRouteVehicles < ActiveRecord::Migration
     end
 
     add_index :route_vehicles, :bus_number
+    add_index :route_vehicles, :bus_route_id
   end
 end
