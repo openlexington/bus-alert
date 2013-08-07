@@ -40,10 +40,7 @@ module Lextran
       # name, like "Hamburg Pavilion - Outbound", and the following divs have
       # departure times, as '01:22 PM'. When no buses are running, departure
       # time divs will say "Done".
-      puts route.name
       doc.css('body div').each do |div|
-        puts div.text
-
         case div.attr('class')
           when 'routeName'
             is_relevant = !!div.text.match(/^#{route.name}/)

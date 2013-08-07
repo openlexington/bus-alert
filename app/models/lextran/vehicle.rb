@@ -19,8 +19,6 @@ module Lextran
                         " #{options.inspect}: #{data.response.message}"
       end
 
-      puts "route_id #{route_id}"
-
       # At times a route might not have any vehicles
       data = data['vehicles'] || {'vehicle' => []}
 

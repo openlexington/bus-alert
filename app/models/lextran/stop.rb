@@ -19,7 +19,6 @@ module Lextran
                         " #{options.inspect}: #{data.response.message}"
       end
 
-      puts 'route_id', route_id
       data = data['route']
       data = data['stops']
       data['stop'].map { |stop|

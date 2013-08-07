@@ -7,7 +7,6 @@ class BusStop < ActiveRecord::Base
   belongs_to :bus_route
 
   def self.outdated
-    puts 'cache_length', BusStop.cache_length.inspect
     where( arel_table[:updated_at].lt(Time.now - BusStop.cache_length) )
   end
 
