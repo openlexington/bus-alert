@@ -20,5 +20,5 @@ class RouteVehiclesController < ApplicationController
         end
       end # RouteVehicle.transaction
     end
-  end # refresh_routes
+  end # refresh_vehicles
 end

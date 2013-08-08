@@ -19,29 +19,18 @@ module Lextran
                         " #{options.inspect}: #{data.response.message}"
       end
 
-      puts "route_id #{route_id}"
-      data = data['vehicles']
+      # At times a route might not have any vehicles
+      data = data['vehicles'] || {'vehicle' => []}
 
-      # At times a might not have any vehicles
-      vehicle_list = []
-      unless data.nil?
-        # At times a route only has a single vehicle
-        if data['vehicle'].is_a? Array
-          vehicle_list = data['vehicle'].map { |vehicle|
-            APIResponse.new( vehicle['name'],
-                             vehicle['lat'],
-                             vehicle['lng'],
-                             route_id )
-          }
-        else
-          vehicle = data['vehicle']
-          vehicle_list << APIResponse.new( vehicle['name'],
-                   vehicle['lat'],
-                   vehicle['lng'],
-                   route_id )
-        end
-      end
-      vehicle_list
+      # At times a route only has a single vehicle
+      data['vehicle'] = Array.wrap(data['vehicle'])
+
+      data['vehicle'].map { |vehicle|
+        APIResponse.new( vehicle['name'],
+                         vehicle['lat'],
+                         vehicle['lng'],
+                         route_id )
+      }
     end
   end
 end
